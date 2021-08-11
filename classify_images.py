@@ -79,15 +79,13 @@ def classify_images(images_dir, results_dic, model):
        # inputs: path + filename  and  model, returns model_label 
        # as classifier label
         
+        #model = "alexnet" 
         
+        test_image = images_dir
+                                
+        model_label_input = classifier(images_dir + '/' + key, model)
         
-        test_image = in_arg.dir
-        
-        model =  in_arg.arch
-                            
-        model_label = classifier(test_image,model)
-        
-        print (model_label)
+            #print (model_label)
         
        # TODO: 3b. BELOW REPLACE pass with CODE to process the model_label to 
        #           convert all characters within model_label to lowercase 
@@ -98,14 +96,18 @@ def classify_images(images_dir, results_dic, model):
        # Processes the results so they can be compared with pet image labels
        # set labels to lowercase (lower) and stripping off whitespace(strip)
        
-       #model_label_lower = model_label_input.lower()
+        model_label_lower = model_label_input.lower()
        #print (model_label_lower)
-       #model_label_strip = model_label_lower.strip()
-       #print (model_label_strip) 
+        model_label_strip = model_label_lower.strip()
+        #print (model_label_strip) 
        
+        model_label = model_label_strip
+        
+        
+        #print(results_dic)
             
        # defines truth as pet image label 
-       #truth = results_dic[key][0]
+        truth = results_dic[key][0]
 
        # TODO: 3c. REPLACE pass BELOW with CODE that uses the extend list function
        #           to add the classifier label (model_label) and the value of
@@ -116,9 +118,12 @@ def classify_images(images_dir, results_dic, model):
        # If the pet image label is found within the classifier label list of terms 
        # as an exact match to on of the terms in the list - then they are added to 
        # results_dic as an exact match(1) using extend list function
-       #if truth in model_label:
-           #pass
-
+        if truth in model_label:
+            results_dic[key].extend(model_label)
+            
+            
+        #print(results_dic)
+                      
        # TODO: 3d. REPLACE pass BELOW with CODE that uses the extend list function
        #           to add the classifier label (model_label) and the value of
        #           0 (where the value of 0 indicates NOT a match between the pet 
@@ -127,8 +132,11 @@ def classify_images(images_dir, results_dic, model):
        #                   
        # if not found then added to results dictionary as NOT a match(0) using
        # the extend function 
-       #else:
-           #pass
-
+        else:
+            results_dic[key].extend(model_label)
+            #results_dic[key].extend("0")
+        
+           
+    print(results_dic)
     
     
